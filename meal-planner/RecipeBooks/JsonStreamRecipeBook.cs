@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using meal_planner.Recipes;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace meal_planner
+namespace meal_planner.RecipeBooks
 {
     public class JsonStreamRecipeBook : IRecipeBook
     {

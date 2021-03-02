@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Demo_v0_1_0
+namespace Demo_v0_2_0
 {
     internal class Program
     {
@@ -17,7 +17,12 @@ namespace Demo_v0_1_0
             Console.WriteLine("Recipes:");
             foreach (var recipe in recipeBook.Recipes())
             {
-                Console.WriteLine(recipe.Name());
+                Console.WriteLine($"{recipe.Name()}:");
+                foreach (var ingredient in recipe.Ingredients())
+                {
+                    Console.WriteLine($"\t{ingredient.Name()}");
+                }
+                Console.WriteLine();
             }
 
             Console.WriteLine("Press any key to quit");

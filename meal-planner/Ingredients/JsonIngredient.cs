@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 
-namespace meal_planner
+namespace meal_planner.Ingredients
 {
-    public class JsonRecipe : IRecipe
+    internal class JsonIngredient : IIngredient
     {
         private readonly JsonElement _json;
 
-        public JsonRecipe(JsonElement json)
+        public JsonIngredient(JsonElement json)
         {
             _json = json;
         }
@@ -15,7 +15,7 @@ namespace meal_planner
         {
             return _json
                 .GetProperty("name")
-                .ToString();
+                .GetString();
         }
     }
 }

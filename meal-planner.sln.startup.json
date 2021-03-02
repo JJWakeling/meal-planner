@@ -58,6 +58,13 @@
           "CommandLineArguments": "C:\\Users\\josep\\Not_Junk\\coding\\meal-planner\\specification\\exemplar_v0-1-0.json"
         }
       }
+    },
+    "Demo_v0-2-0": {
+      "Projects": {
+        "Demo_v0-2-0": {
+          "CommandLineArguments": "C:\\Users\\josep\\Not_Junk\\coding\\meal-planner\\specification\\exemplar_v0-2-0.json"
+        }
+      }
     }
   }
 }
