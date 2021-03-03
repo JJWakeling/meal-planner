@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using meal_planner.Quantities;
+using System.Text.Json;
 
 namespace meal_planner.Ingredients
 {
@@ -16,6 +17,13 @@ namespace meal_planner.Ingredients
             return _json
                 .GetProperty("name")
                 .GetString();
+        }
+
+        public IQuantity Quantity()
+        {
+            return _json.TryGetProperty("quantity", out var quantity)
+                ? (IQuantity) new JsonQuantity(quantity)
+                : new UnspecifiedQuantity();
         }
     }
 }
