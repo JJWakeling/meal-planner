@@ -19,7 +19,7 @@ namespace meal_planner.Quantities
                 .GetDouble()
                 .ToString()
                 +
-                new Unit(
+                new LiteralUnit(
                     _json
                     .GetProperty("unit")
                     .GetString()

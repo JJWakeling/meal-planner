@@ -1,10 +1,10 @@
 ﻿namespace meal_planner.Units
 {
-    internal class Unit : IUnit
+    internal class LiteralUnit : IUnit
     {
         private readonly string _symbol;
 
-        public Unit(string symbol)
+        public LiteralUnit(string symbol)
         {
             _symbol = symbol;
         }
