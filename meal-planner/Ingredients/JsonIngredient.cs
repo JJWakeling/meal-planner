@@ -1,4 +1,6 @@
 ﻿using meal_planner.Quantities;
+using meal_planner.Units;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace meal_planner.Ingredients
@@ -22,8 +24,8 @@ namespace meal_planner.Ingredients
         public IQuantity Quantity()
         {
             return _json.TryGetProperty("quantity", out var quantity)
-                ? (IQuantity) new JsonQuantity(quantity)
-                : new UnspecifiedQuantity();
+                ? (IQuantity)new JsonQuantity(quantity)
+                : new MixedQuantity(new Dictionary<IUnit, double>(), 1);
         }
     }
 }

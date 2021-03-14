@@ -1,4 +1,5 @@
 ﻿using meal_planner.Units;
+using System.Collections.Generic;
 using System.Text.Json;
 
 namespace meal_planner.Quantities
@@ -12,19 +13,57 @@ namespace meal_planner.Quantities
             _json = json;
         }
 
+        public override IQuantity Product(double multiplier)
+        {
+            var components = new Dictionary<IUnit, double>
+            {
+                { Unit(), Number() }
+            };
+
+            return new MixedQuantity(components, 0)
+                .Product(multiplier);
+        }
+
+        public override IQuantity Sum(IQuantity addend)
+        {
+            var components = new Dictionary<IUnit, double>
+            {
+                { Unit(), Number() }
+            };
+
+            return new MixedQuantity(components, 0)
+                .Sum(addend);
+        }
+
+        public override IQuantity Sum(
+            IReadOnlyDictionary<IUnit, double> addends,
+            int unspecifieds
+        )
+        {
+            var components = new Dictionary<IUnit, double>
+            {
+                { Unit(), Number() }
+            };
+
+            return new MixedQuantity(components, 0)
+                .Sum(addends, unspecifieds);
+        }
+
         protected override string Representation()
         {
-            return _json
-                .GetProperty("number")
-                .GetDouble()
-                .ToString()
-                +
-                new LiteralUnit(
-                    _json
-                    .GetProperty("unit")
-                    .GetString()
-                )
-                .Symbol();
+            return Number().ToString() + Unit().Symbol();
+        }
+
+        private double Number()
+        {
+            return _json.GetProperty("number").GetDouble();
+        }
+
+        private IUnit Unit()
+        {
+            return new LiteralUnit(
+                _json.GetProperty("unit").GetString()
+            );
         }
     }
 }
