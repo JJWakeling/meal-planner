@@ -2,12 +2,12 @@
 
 namespace meal_planner.Meals
 {
-    internal class LiteralMeal : IMeal
+    public class LiteralMeal : IMeal
     {
         private readonly IRecipe _recipe;
-        private readonly int _servings;
+        private readonly double _servings;
 
-        public LiteralMeal(IRecipe recipe, int servings)
+        public LiteralMeal(IRecipe recipe, double servings)
         {
             _recipe = recipe;
             _servings = servings;
@@ -18,7 +18,7 @@ namespace meal_planner.Meals
             return _recipe;
         }
 
-        public int Servings()
+        public double Servings()
         {
             return _servings;
         }

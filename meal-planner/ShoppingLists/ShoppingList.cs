@@ -8,9 +8,9 @@ namespace meal_planner.ShoppingLists
 {
     public class ShoppingList : IShoppingList
     {
-        private readonly IMeal[] _meals;
+        private readonly IEnumerable<IMeal> _meals;
 
-        public ShoppingList(IMeal[] meals)
+        public ShoppingList(IEnumerable<IMeal> meals)
         {
             _meals = meals;
         }
@@ -30,7 +30,21 @@ namespace meal_planner.ShoppingLists
                         ingredients.Add(
                             new LiteralIngredient(
                                 ingredient.Name(),
-                                ingredient.Quantity().Sum(previous.Quantity())
+                                ingredient
+                                    .Quantity()
+                                    .Product(meal.Servings())
+                                    .Sum(previous.Quantity())
+                            )
+                        );
+                    }
+                    else
+                    {
+                        ingredients.Add(
+                            new LiteralIngredient(
+                                ingredient.Name(),
+                                ingredient
+                                    .Quantity()
+                                    .Product(meal.Servings())
                             )
                         );
                     }

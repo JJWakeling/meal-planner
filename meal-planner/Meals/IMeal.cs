@@ -6,6 +6,6 @@ namespace meal_planner.Meals
     public interface IMeal
     {
         IRecipe Recipe();
-        int Servings();
+        double Servings();
     }
 }

@@ -64,7 +64,11 @@ namespace meal_planner.Quantities
                         //TODO: always display to 4sf
                         .Select(u => $"{_components[u]}{u.Symbol()}")
                     )
-                .Append($" + unspecified contributions from {_unspecifieds} other recipes")
+                .Append(
+                    _unspecifieds > 0
+                    ? $" + {_unspecifieds} * unspecified"
+                    : ""
+                )
                 .ToString();
         }
     }
