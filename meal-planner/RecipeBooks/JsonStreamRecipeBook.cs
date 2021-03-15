@@ -15,6 +15,14 @@ namespace meal_planner.RecipeBooks
             _source = source;
         }
 
+        public IRecipeBook Composition(IRecipeBook other)
+        {
+            return new LiteralRecipeBook(
+                Recipes()
+                .Concat(other.Recipes())
+            );
+        }
+
         public IEnumerable<IRecipe> Recipes()
         {
             return JsonDocument

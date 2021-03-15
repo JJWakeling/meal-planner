@@ -5,6 +5,7 @@ namespace meal_planner.RecipeBooks
 {
     public interface IRecipeBook
     {
+        IRecipeBook Composition(IRecipeBook other);
         IEnumerable<IRecipe> Recipes();
     }
 }
