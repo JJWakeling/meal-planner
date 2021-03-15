@@ -16,6 +16,8 @@ namespace meal_planner.Quantities
             _unspecifieds = unspecifieds;
         }
 
+        //TODO: make some of these methods a little less verbose
+
         public override IQuantity Product(double multiplier)
         {
             var totals = new Dictionary<IUnit, double>();
