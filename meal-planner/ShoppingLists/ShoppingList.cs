@@ -16,6 +16,7 @@ namespace meal_planner.ShoppingLists
         }
 
         //TODO: make this more OO, less procedural
+        //TODO: print all quantities at same tabulation
         protected override string Representation()
         {
             var ingredients = new List<IIngredient>();

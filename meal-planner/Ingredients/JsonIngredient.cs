@@ -24,7 +24,7 @@ namespace meal_planner.Ingredients
         public IQuantity Quantity()
         {
             return _json.TryGetProperty("quantity", out var quantity)
-                ? (IQuantity)new JsonQuantity(quantity)
+                ? new JsonQuantityFactory(quantity).Quantity()
                 : new MixedQuantity(new Dictionary<IUnit, double>(), 1);
         }
     }
