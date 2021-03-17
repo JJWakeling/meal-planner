@@ -15,41 +15,24 @@ namespace meal_planner.ShoppingLists
             _meals = meals;
         }
 
-        //TODO: make this more OO, less procedural
+        //TODO: extract some of the responsibilities of this method
         protected override string Representation()
         {
-            var ingredients = new List<IIngredient>();
-            foreach (var meal in _meals)
-            {
-                foreach (var ingredient in meal.Recipe().Ingredients())
-                {
-                    if (ingredients.Any(i => i.Name() == ingredient.Name()))
-                    {
-                        var previous = ingredients.First(i => i.Name() == ingredient.Name());
-                        ingredients.Remove(previous);
-                        ingredients.Add(
-                            new LiteralIngredient(
-                                ingredient.Name(),
-                                ingredient
-                                    .Quantity()
-                                    .Product(meal.Servings())
-                                    .Sum(previous.Quantity())
+            var ingredients = new IngredientTotals(
+                _meals.
+                    SelectMany(m =>
+                        m
+                            .Recipe()
+                            .Ingredients()
+                            .Select(i =>
+                                new LiteralIngredient(
+                                    i.Name(),
+                                    i.Quantity().Product(m.Servings())
+                                )
                             )
-                        );
-                    }
-                    else
-                    {
-                        ingredients.Add(
-                            new LiteralIngredient(
-                                ingredient.Name(),
-                                ingredient
-                                    .Quantity()
-                                    .Product(meal.Servings())
-                            )
-                        );
-                    }
-                }
-            }
+                    )
+            )
+                .Totals();
 
             var quantityIndentation = ingredients
                 .Max(i => i.Name().Length)
