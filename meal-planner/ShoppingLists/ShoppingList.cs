@@ -16,7 +16,6 @@ namespace meal_planner.ShoppingLists
         }
 
         //TODO: make this more OO, less procedural
-        //TODO: print all quantities at same tabulation
         protected override string Representation()
         {
             var ingredients = new List<IIngredient>();
@@ -52,10 +51,14 @@ namespace meal_planner.ShoppingLists
                 }
             }
 
+            var quantityIndentation = ingredients
+                .Max(i => i.Name().Length)
+                + 1;
+
             return new StringBuilder()
                 .AppendJoin(
                     "\n",
-                    ingredients.Select(i => $"{i.Name()} \t{i.Quantity()}")
+                    ingredients.Select(i => new ShoppingListLine(i, quantityIndentation).ToString())
                 )
                 .ToString();
         }
