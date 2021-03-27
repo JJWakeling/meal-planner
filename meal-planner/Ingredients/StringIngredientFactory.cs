@@ -13,7 +13,7 @@ namespace meal_planner.Ingredients
 
         public StringIngredientFactory(string source)
         {
-            _source = source;
+            _source = source.Trim();
         }
 
         //TODO: reduce complexity
