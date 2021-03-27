@@ -7,17 +7,21 @@ namespace meal_planner.Ui
 {
     public class ConsoleRecipeFactory : IRecipeFactory
     {
+        //TODO: make this less procedural: maybe use recursion to avoid horrible "while (true)" construction
         public IRecipe Recipe()
         {
             Console.WriteLine("Recipe name:");
             var name = Console.ReadLine();
 
             var ingredients = new List<IIngredient>();
-            var response = " ";
-            while (response != "")
+            while (true)
             {
                 Console.WriteLine("Specify new ingredient or press return to finish");
-                response = Console.ReadLine();
+                var response = Console.ReadLine();
+                if (response == "")
+                {
+                    break;
+                }
                 try
                 {
                     ingredients.Add(

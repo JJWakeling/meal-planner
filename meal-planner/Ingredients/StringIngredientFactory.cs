@@ -16,14 +16,17 @@ namespace meal_planner.Ingredients
             _source = source;
         }
 
-        //TODO: modify to accept unspecified quantities
+        //TODO: reduce complexity
         public IIngredient Ingredient()
         {
-            var regex = new Regex(@"^(\D+)\s(\d*\.?\d*)(\w*)$");
+            var regex = new Regex(@"^(\D+)\s(\d+\.?\d*|.\d+)(\w*)$");
 
             if (!regex.IsMatch(_source))
             {
-                throw new Exception("Ingredient must be of the form: <foodstuff> <quantity><unit>");
+                return new LiteralIngredient(
+                    _source,
+                    new MixedQuantity(new Dictionary<IUnit, double>(), 1)
+                );
             }
 
             var captures = 
