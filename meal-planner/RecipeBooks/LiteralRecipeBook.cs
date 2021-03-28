@@ -1,10 +1,11 @@
-﻿using meal_planner.Recipes;
+﻿using Json;
+using meal_planner.Recipes;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace meal_planner.RecipeBooks
 {
-    internal class LiteralRecipeBook : IRecipeBook
+    public class LiteralRecipeBook : IRecipeBook
     {
         private readonly IEnumerable<IRecipe> _recipes;
 
@@ -17,6 +18,13 @@ namespace meal_planner.RecipeBooks
         {
             return new LiteralRecipeBook(
                 _recipes.Concat(other.Recipes())
+            );
+        }
+
+        public IJson Json()
+        {
+            return new JsonArray(
+                _recipes.Select(r => r.Json())
             );
         }
 

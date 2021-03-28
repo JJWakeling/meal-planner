@@ -1,0 +1,64 @@
+[
+	{
+		"name": "Aubergine Penne Arrabiata",
+		"ingredients": [
+			{
+				"name": "oil",
+				"quantity": {
+					"unspecifieds": 1,
+					"components": []
+				}
+			},
+			{
+				"name": "chilli pepper",
+				"quantity": {
+					"unspecifieds": 0,
+					"components": [
+						{
+							"number": 1.5,
+							"unit": ""
+						}
+					]
+				}
+			},
+			{
+				"name": "aubergine",
+				"quantity": {
+					"unspecifieds": 0,
+					"components": [
+						{
+							"number": 1,
+							"unit": ""
+						}
+					]
+				}
+			},
+			{
+				"name": "penne",
+				"quantity": {
+					"unspecifieds": 1,
+					"components": []
+				}
+			},
+			{
+				"name": "garlic",
+				"quantity": {
+					"unspecifieds": 1,
+					"components": []
+				}
+			},
+			{
+				"name": "tinned tomatoes",
+				"quantity": {
+					"unspecifieds": 0,
+					"components": [
+						{
+							"number": 250,
+							"unit": "g"
+						}
+					]
+				}
+			}
+		]
+	}
+]

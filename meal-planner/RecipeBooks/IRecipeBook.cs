@@ -1,4 +1,5 @@
-﻿using meal_planner.Recipes;
+﻿using Json;
+using meal_planner.Recipes;
 using System.Collections.Generic;
 
 namespace meal_planner.RecipeBooks
@@ -7,5 +8,7 @@ namespace meal_planner.RecipeBooks
     {
         IRecipeBook Composition(IRecipeBook other);
         IEnumerable<IRecipe> Recipes();
+
+        IJson Json();
     }
 }

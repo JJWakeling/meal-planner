@@ -1,4 +1,5 @@
-﻿using meal_planner.Quantities;
+﻿using Json;
+using meal_planner.Quantities;
 
 namespace meal_planner.Ingredients
 {
@@ -6,5 +7,6 @@ namespace meal_planner.Ingredients
     {
         string Name();
         IQuantity Quantity();
+        IJson Json();
     }
 }

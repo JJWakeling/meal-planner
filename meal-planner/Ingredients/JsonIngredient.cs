@@ -1,4 +1,5 @@
-﻿using meal_planner.Quantities;
+﻿using Json;
+using meal_planner.Quantities;
 using meal_planner.Units;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -14,6 +15,11 @@ namespace meal_planner.Ingredients
             _json = json;
         }
 
+        public IJson Json()
+        {
+            return new RawJson(_json.GetRawText());
+        }
+
         public string Name()
         {
             return _json
@@ -21,6 +27,7 @@ namespace meal_planner.Ingredients
                 .GetString();
         }
 
+        //TODO: URGENT: fix this to read in new form of quantity as of specification v1-0-0
         public IQuantity Quantity()
         {
             return _json.TryGetProperty("quantity", out var quantity)

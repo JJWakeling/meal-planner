@@ -1,4 +1,5 @@
-﻿using meal_planner.Units;
+﻿using Json;
+using meal_planner.Units;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,22 @@ namespace meal_planner.Quantities
         {
             _components = components;
             _unspecifieds = unspecifieds;
+        }
+
+        public override IJson Json()
+        {
+            return new JsonObject()
+                .WithProperty("unspecifieds", new JsonDouble(_unspecifieds))
+                .WithProperty(
+                    "components",
+                    new JsonArray(
+                        _components.Select(c =>
+                            new JsonObject()
+                                .WithProperty("number", new JsonDouble(c.Value))
+                                .WithProperty("unit", new JsonString(c.Key.Symbol()))
+                        )
+                    )
+                );
         }
 
         //TODO: make some of these methods a little less verbose

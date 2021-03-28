@@ -1,4 +1,5 @@
-﻿using meal_planner.Quantities;
+﻿using Json;
+using meal_planner.Quantities;
 
 namespace meal_planner.Ingredients
 {
@@ -11,6 +12,13 @@ namespace meal_planner.Ingredients
         {
             _name = name;
             _quantity = quantity;
+        }
+
+        public IJson Json()
+        {
+            return new JsonObject()
+                .WithProperty("name", new JsonString(_name))
+                .WithProperty("quantity", _quantity.Json());
         }
 
         public string Name()

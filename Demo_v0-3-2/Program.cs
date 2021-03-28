@@ -5,7 +5,7 @@ namespace Demo_v0_3_2
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var recipe = new ConsoleRecipeFactory()
                 .Recipe();
