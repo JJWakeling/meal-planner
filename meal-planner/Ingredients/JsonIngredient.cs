@@ -27,7 +27,6 @@ namespace meal_planner.Ingredients
                 .GetString();
         }
 
-        //TODO: URGENT: fix this to read in new form of quantity as of specification v1-0-0
         public IQuantity Quantity()
         {
             return _json.TryGetProperty("quantity", out var quantity)

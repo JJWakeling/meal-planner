@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Demo_v1-0-1": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\josep\\Not_Junk\\coding\\meal-planner\\specification\\exemplar_v1-0-0.json"
+    }
+  }
+}

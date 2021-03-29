@@ -1,5 +1,6 @@
 ﻿using meal_planner.Units;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 namespace meal_planner.Quantities
@@ -16,16 +17,18 @@ namespace meal_planner.Quantities
         public IQuantity Quantity()
         {
             return new MixedQuantity(
-                new Dictionary<IUnit, double>
-                {
-                    {
-                        new LiteralUnit(
-                            _json.GetProperty("unit").GetString()
-                        ),
-                        _json.GetProperty("number").GetDouble()
-                    }
-                },
-                0
+                new Dictionary<IUnit, double>(
+                    _json
+                        .GetProperty("components")
+                        .EnumerateArray()
+                        .Select(c =>
+                            new KeyValuePair<IUnit, double> (
+                                new LiteralUnit(c.GetProperty("unit").GetString()),
+                                c.GetProperty("number").GetDouble()
+                            )
+                        )
+                ),
+                _json.GetProperty("unspecifieds").GetInt32()
             );
         }
     }
