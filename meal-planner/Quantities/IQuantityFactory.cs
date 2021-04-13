@@ -2,6 +2,6 @@
 {
     public interface IQuantityFactory
     {
-        IQuantity Quantity();
+        IMixedQuantity Quantity();
     }
 }

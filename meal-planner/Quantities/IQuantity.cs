@@ -9,20 +9,13 @@ namespace meal_planner.Quantities
     // you probably made this more difficult than it needed to be by trying to resist treating objects like data bags too much
     // even Bugayenkoism has its limits
     // on the other hand, maybe you wouldn't have figured out the exact way you needed to split the interfaces without going down this path, who knows?
-    public abstract class IQuantity
+    public abstract class IQuantity : IParsedJson
     {
         protected abstract string Representation();
-        public abstract IQuantity Sum(
-            IReadOnlyDictionary<IUnit, double> addends,
-            int unspecifieds
-        );
-        public abstract IQuantity Sum(IQuantity addend);
-        public abstract IQuantity Product(double multiplier);
-        public abstract IJson Json();
-
         public override string ToString()
         {
             return Representation();
         }
+        public abstract IJson Json();
     }
 }

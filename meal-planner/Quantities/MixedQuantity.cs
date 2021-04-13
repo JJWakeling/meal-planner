@@ -1,20 +1,53 @@
 ﻿using Json;
-using meal_planner.Units;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace meal_planner.Quantities
 {
-    internal class MixedQuantity : IQuantity
+    public class MixedQuantity : IMixedQuantity
     {
-        private readonly IReadOnlyDictionary<IUnit, double> _components;
+        private readonly IEnumerable<IBaseQuantity> _components;
         private readonly int _unspecifieds;
 
-        public MixedQuantity(IReadOnlyDictionary<IUnit, double> components, int unspecifieds)
+        #region ctors
+        public MixedQuantity(IEnumerable<IBaseQuantity> components, int unspecifieds)
         {
             _components = components;
             _unspecifieds = unspecifieds;
+        }
+
+        public MixedQuantity(IEnumerable<IMixedQuantity> components)
+            : this(
+                  components.SelectMany(c => c.Components()),
+                  components.Sum(c => c.Unspecifieds())
+              )
+        {
+        }
+
+        public MixedQuantity(IMixedQuantity multiplicand, double multiplier)
+            : this(
+                  multiplicand
+                      .Components()
+                      .Select(q => new LiteralBaseQuantity(q.Number() * multiplier, q.Unit())),
+                  multiplicand.Unspecifieds()
+              )
+        {
+        }
+
+        #endregion
+
+        //TODO: test that this compares IUnits appropriately
+        public override IEnumerable<IBaseQuantity> Components()
+        {
+            return _components
+                .GroupBy(c => c.Unit())
+                .Select(g =>
+                    new LiteralBaseQuantity(
+                        g.Sum(q => q.Number()),
+                        g.Key
+                    )
+                );
         }
 
         public override IJson Json()
@@ -23,66 +56,19 @@ namespace meal_planner.Quantities
                 .WithProperty("unspecifieds", new JsonDouble(_unspecifieds))
                 .WithProperty(
                     "components",
-                    new JsonArray(
-                        _components.Select(c =>
-                            new JsonObject()
-                                .WithProperty("number", new JsonDouble(c.Value))
-                                .WithProperty("unit", new JsonString(c.Key.Symbol()))
-                        )
-                    )
+                    new JsonArray(_components.Select(c => c.Json()))
                 );
         }
 
-        //TODO: make some of these methods a little less verbose
-
-        public override IQuantity Product(double multiplier)
+        public override int Unspecifieds()
         {
-            var totals = new Dictionary<IUnit, double>();
-            foreach (var unit in _components.Keys)
-            {
-                totals.Add(unit, _components[unit] * multiplier);
-            }
-
-            return new MixedQuantity(totals, _unspecifieds);
-        }
-
-        public override IQuantity Sum(IQuantity addend)
-        {
-            return addend.Sum(_components, _unspecifieds);
-        }
-
-        public override IQuantity Sum(
-            IReadOnlyDictionary<IUnit, double> addends,
-            int unspecifieds
-        )
-        {
-            var units = _components
-                .Keys
-                .Union(addends.Keys);
-            var totals = new Dictionary<IUnit, double>();
-            foreach (var unit in units)
-            {
-                totals.Add(
-                    unit,
-                    (_components.ContainsKey(unit) ? _components[unit] : 0)
-                    +
-                    (addends.ContainsKey(unit) ? addends[unit] : 0)
-                );
-            }
-
-            return new MixedQuantity(totals, _unspecifieds + unspecifieds);
+            return _unspecifieds;
         }
 
         protected override string Representation()
         {
             return new StringBuilder()
-                .AppendJoin(
-                    " + ",
-                    _components
-                        .Keys
-                        //TODO: always display to 4sf
-                        .Select(u => $"{_components[u]}{u.Symbol()}")
-                    )
+                .AppendJoin(" + ", _components.Select(q => q.ToString()))
                 .Append(
                     _unspecifieds > 0
                     ? $" + {_unspecifieds} * unspecified"

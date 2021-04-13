@@ -24,7 +24,7 @@ namespace meal_planner.Ingredients
             {
                 return new LiteralIngredient(
                     _source,
-                    new MixedQuantity(new Dictionary<IUnit, double>(), 1)
+                    new MixedQuantity(new IBaseQuantity[0], 1)
                 );
             }
 
@@ -41,12 +41,12 @@ namespace meal_planner.Ingredients
             return new LiteralIngredient(
                 captures[1],
                 new MixedQuantity(
-                    new Dictionary<IUnit, double>()
+                    new IBaseQuantity[]
                     {
-                        {
-                            new LiteralUnit(captures[3]),
-                            double.Parse(captures[2])
-                        }
+                        new LiteralBaseQuantity(
+                            double.Parse(captures[2]),
+                            new LiteralUnit(captures[3])
+                        )
                     },
                     0
                 )

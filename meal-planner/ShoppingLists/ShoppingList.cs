@@ -1,5 +1,6 @@
 ﻿using meal_planner.Ingredients;
 using meal_planner.Meals;
+using meal_planner.Quantities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace meal_planner.ShoppingLists
                             .Select(i =>
                                 new LiteralIngredient(
                                     i.Name(),
-                                    i.Quantity().Product(m.Servings())
+                                    new MixedQuantity(i.Quantity(), m.Servings())
                                 )
                             )
                     )

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using meal_planner.Quantities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace meal_planner.Ingredients
@@ -25,10 +26,15 @@ namespace meal_planner.Ingredients
                             .Append(
                                 new LiteralIngredient(
                                     next.Name(),
-                                    totals
-                                        .First(i => i.Name() == next.Name())
-                                        .Quantity()
-                                        .Sum(next.Quantity())
+                                    new MixedQuantity(
+                                        new IMixedQuantity[]
+                                        {
+                                            next.Quantity(),
+                                            totals
+                                                .First(i => i.Name() == next.Name())
+                                                .Quantity()
+                                        }
+                                    )
                                 )
                             )
                     : totals.Append(next)

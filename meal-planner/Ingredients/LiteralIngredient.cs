@@ -6,9 +6,9 @@ namespace meal_planner.Ingredients
     internal class LiteralIngredient : IIngredient
     {
         private readonly string _name;
-        private readonly IQuantity _quantity;
+        private readonly IMixedQuantity _quantity;
 
-        public LiteralIngredient(string name, IQuantity quantity)
+        public LiteralIngredient(string name, IMixedQuantity quantity)
         {
             _name = name;
             _quantity = quantity;
@@ -26,7 +26,7 @@ namespace meal_planner.Ingredients
             return _name;
         }
 
-        public IQuantity Quantity()
+        public IMixedQuantity Quantity()
         {
             return _quantity;
         }

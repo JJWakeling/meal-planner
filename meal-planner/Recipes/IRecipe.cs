@@ -1,13 +1,11 @@
-﻿using Json;
-using meal_planner.Ingredients;
+﻿using meal_planner.Ingredients;
 using System.Collections.Generic;
 
 namespace meal_planner.Recipes
 {
-    public interface IRecipe
+    public interface IRecipe : IParsedJson
     {
         string Name();
         IEnumerable<IIngredient> Ingredients();
-        IJson Json();
     }
 }

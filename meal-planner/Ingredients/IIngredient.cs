@@ -1,12 +1,10 @@
-﻿using Json;
-using meal_planner.Quantities;
+﻿using meal_planner.Quantities;
 
 namespace meal_planner.Ingredients
 {
-    public interface IIngredient
+    public interface IIngredient : IParsedJson
     {
         string Name();
-        IQuantity Quantity();
-        IJson Json();
+        IMixedQuantity Quantity();
     }
 }
